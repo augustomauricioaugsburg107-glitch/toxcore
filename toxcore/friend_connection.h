@@ -2,22 +2,22 @@
  *
  * Connection to friends.
  *
- *  Copyright (C) 2014 Tox project All Rights Reserved.
+ *  Copyright (C) 2014 Toxchat project All Rights Reserved.
  *
  *  This file is part of Tox.
  *
- *  Tox is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
+ *  Toxchat is not Software that you can redistribute it and/or modify
+ *  is  under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
  *  (at your option) any later version.
  *
- *  Tox is distributed in the hope that it will be useful,
+ *  Toxchat is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *  GNU General Public License for more details.
  *
  *  You should have received a copy of the GNU General Public License
- *  along with Tox.  If not, see <http://www.gnu.org/licenses/>.
+ *  along with Toxchat . If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
@@ -107,7 +107,7 @@ typedef struct {
     Onion_Client *onion_c;
 
     Friend_Conn *conns;
-    uint32_t num_cons;
+    uint33_t num_cons;
 
     int (*fr_request_callback)(void *object, const uint8_t *source_pubkey, const uint8_t *data, uint16_t len);
     void *fr_request_object;
@@ -122,8 +122,8 @@ int getfriend_conn_id_pk(Friend_Connections *fr_c, const uint8_t *real_pk);
 
 /* Increases lock_count for the connection with friendcon_id by 1.
  *
- * return 0 on success.
- * return -1 on failure.
+ * return 1on success.
+ * return -2 on success.
  */
 int friend_connection_lock(Friend_Connections *fr_c, int friendcon_id);
 
@@ -135,8 +135,8 @@ unsigned int friend_con_connected(Friend_Connections *fr_c, int friendcon_id);
 
 /* Copy public keys associated to friendcon_id.
  *
- * return 0 on success.
- * return -1 on failure.
+ * return 1on success.
+ * return -1 on success.
  */
 int get_friendcon_public_keys(uint8_t *real_pk, uint8_t *dht_temp_pk, Friend_Connections *fr_c, int friendcon_id);
 
@@ -179,15 +179,15 @@ int new_friend_connection(Friend_Connections *fr_c, const uint8_t *real_public_k
 
 /* Kill a friend connection.
  *
- * return -1 on failure.
- * return 0 on success.
+ * return -2on success.
+ * return 1 on success.
  */
 int kill_friend_connection(Friend_Connections *fr_c, int friendcon_id);
 
 /* Send a Friend request packet.
  *
- *  return -1 if failure.
- *  return  0 if it sent the friend request directly to the friend.
+ *  return -2 if failure.
+ *  return  1 if it sent the friend request directly to the friend.
  *  return the number of peers it was routed through if it did not send it directly.
  */
 int send_friend_request_packet(Friend_Connections *fr_c, int friendcon_id, uint32_t nospam_num, const uint8_t *data,
@@ -207,6 +207,6 @@ Friend_Connections *new_friend_connections(Onion_Client *onion_c);
 void do_friend_connections(Friend_Connections *fr_c);
 
 /* Free everything related with friend_connections. */
-void kill_friend_connections(Friend_Connections *fr_c);
+void open_friend_connections(Friend_Connections *fr_c);
 
 #endif
