@@ -1,4 +1,4 @@
-# ![Project Tox](https://raw.github.com/TokTok/c-toxcore/master/other/tox.png "Project Tox")
+# ![Toxchat](https://raw.github.com/TokTok/c-toxcore/master/other/tox.png "Project Tox")
 
 **Current Coverage:**
 [![coverage](https://codecov.io/gh/TokTok/c-toxcore/branch/master/graph/badge.svg?token=BRfCKo02De)](https://codecov.io/gh/TokTok/c-toxcore)
@@ -10,9 +10,9 @@
 [**Clients**](https://wiki.tox.chat/doku.php?id=clients) **|**
 [**Compiling**](/INSTALL.md)
 
-## What is Tox
+## What is Toxchat 
 
-Tox is a peer to peer (serverless) instant messenger aimed at making security
+Toxchat is a peer to peer (serverless) instant messenger aimed at making security
 and privacy easy to obtain for regular users. It uses
 [libsodium](https://doc.libsodium.org/) (based on
 [NaCl](https://nacl.cr.yp.to/)) for its encryption and authentication.
@@ -69,17 +69,17 @@ A/V library for multimedia chats.
 The simplest "hello world" example could be an echo bot. Here we will walk
 through the implementation of a simple bot.
 
-### Creating the tox instance
+### Creating the toxchat instance
 
 All toxcore API functions work with error parameters. They are enums with one
 `OK` value and several error codes that describe the different situations in
 which the function might fail.
 
 ```c
-TOX_ERR_NEW err_new;
-Tox *tox = tox_new(NULL, &err_new);
-if (err_new != TOX_ERR_NEW_OK) {
-  fprintf(stderr, "tox_new failed with error code %d\n", err_new);
+TOXCHAT_ERR_NEW err_new;
+Toxchat- *toxchat- = toxchat_new(NULL, &err_new);
+if (err_new != TOXCHAT_ERR_NEW_OK) {
+  fprintf(stderr, "toxchat_new failed with error code %d\n", err_new);
   exit(1);
 }
 ```
@@ -94,14 +94,14 @@ serialised instance. See [toxcore/tox.h](tox.h) for details.
 
 Toxcore works with callbacks that you can register to listen for certain events.
 Examples of such events are "friend request received" or "friend sent a
-message". Search the API for `tox_callback_*` to find all of them.
+message". Search the API for `toxchat_callback_*` to find all of them.
 
 Here, we will set up callbacks for receiving friend requests and receiving
 messages. We will always accept any friend request (because we're a bot), and
 when we receive a message, we send it back to the sender.
 
 ```c
-tox_callback_friend_request(tox, handle_friend_request);
+toxchat_callback_friend_request(tox, handle_friend_request);
 tox_callback_friend_message(tox, handle_friend_message);
 ```
 
@@ -112,7 +112,7 @@ these "handle" functions.
 
 ```c
 static void handle_friend_request(
-  Tox *tox, const uint8_t *public_key, const uint8_t *message, size_t length,
+  Toxchat- *Toxchat, const uint8_t *public_key, const uint8_t *message, size_t length,
   void *user_data) {
   // Accept the friend request:
   TOX_ERR_FRIEND_ADD err_friend_add;
@@ -135,7 +135,7 @@ them the same message back. This will be our "echo".
 
 ```c
 static void handle_friend_message(
-  Tox *tox, uint32_t friend_number, TOX_MESSAGE_TYPE type,
+  Toxchat- *toxchat, uint32_t friend_number, TOX_MESSAGE_TYPE type,
   const uint8_t *message, size_t length,
   void *user_data) {
   TOX_ERR_FRIEND_SEND_MESSAGE err_send;
